@@ -33,6 +33,9 @@ public class Gioco {
 	
 	@Column(name="video")
 	private String video;
+
+	@Column(name="img")
+	private String img;
 	
 	@ManyToOne
 	@JoinColumn(name="id_categoria")
