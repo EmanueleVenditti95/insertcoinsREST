@@ -29,6 +29,7 @@ public class GiocoRestController {
     @Autowired
     private CommentoService commService;
 
+    // LISTA ---------------------------------------------------
     @GetMapping("")
     public Map<String, Object> lista() {       
         return service.recuperaTuttiDaNome();

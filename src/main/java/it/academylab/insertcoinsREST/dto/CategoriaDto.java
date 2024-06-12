@@ -8,13 +8,7 @@ import lombok.NoArgsConstructor;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @NoArgsConstructor @AllArgsConstructor @Data
-public class GiocoDto {
-
+public class CategoriaDto {
     private long id;
     private String nome;
-    private String descrizione;
-    private String video;
-    private String img;
-
-    private CategoriaDto categoria;
 }

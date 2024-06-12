@@ -8,7 +8,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it.academylab.insertcoinsREST.dto.CategoriaDto;
 import it.academylab.insertcoinsREST.dto.GiocoDto;
+import it.academylab.insertcoinsREST.entities.Categoria;
 import it.academylab.insertcoinsREST.entities.Gioco;
 import it.academylab.insertcoinsREST.repositories.GiocoRepository;
 
@@ -19,12 +21,30 @@ public class GiocoServiceImpl implements GiocoService{
     private GiocoRepository repo;
 
     public Map<String, Object> recuperaTuttiDaNome() {
+
         List<Gioco> giochi = repo.findAllByOrderByNomeAsc();
 
         List<GiocoDto> dto = new ArrayList<GiocoDto>();
 
-        for(Gioco g : giochi)
-            dto.add(new GiocoDto(g.getId(),g.getNome(),g.getDescrizione(),g.getVideo(),g.getImg()));
+        for(Gioco g : giochi) {
+            Categoria categoria = g.getCategoria();
+            long categoriaId = 0;
+            String categoriaNome = "";
+            if (categoria != null) {
+                categoriaId = categoria.getId();
+                categoriaNome = categoria.getNome();
+                }
+            CategoriaDto categoriaDto = new CategoriaDto(categoriaId,categoriaNome);
+                
+            dto.add(new GiocoDto(
+                g.getId(),
+                g.getNome(),
+                g.getDescrizione(),
+                g.getVideo(),
+                g.getImg(),
+                categoriaDto
+            ));
+       }
 
         Map<String, Object> giochiMap = new HashMap<>();
         giochiMap.put("giochi", dto);
