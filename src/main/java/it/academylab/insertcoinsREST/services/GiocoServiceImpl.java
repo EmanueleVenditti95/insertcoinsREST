@@ -1,8 +1,14 @@
 package it.academylab.insertcoinsREST.services;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it.academylab.insertcoinsREST.dto.GiocoDto;
 import it.academylab.insertcoinsREST.entities.Gioco;
 import it.academylab.insertcoinsREST.repositories.GiocoRepository;
 
@@ -11,6 +17,23 @@ public class GiocoServiceImpl implements GiocoService{
 
     @Autowired
     private GiocoRepository repo;
+
+    public Map<String, Object> recuperaTuttiDaNome() {
+        List<Gioco> giochi = repo.findAllByOrderByNomeAsc();
+
+        List<GiocoDto> dto = new ArrayList<GiocoDto>();
+
+        for(Gioco g : giochi)
+            dto.add(new GiocoDto(g.getId(),g.getNome(),g.getDescrizione(),g.getVideo(),g.getImg()));
+
+        Map<String, Object> giochiMap = new HashMap<>();
+        giochiMap.put("giochi", dto);
+
+		Map<String, Object> mappa = new HashMap<>();
+		mappa.put("_embedded", giochiMap);
+
+        return mappa;
+    }
 
     @Override
     public Long salva(Gioco g) {

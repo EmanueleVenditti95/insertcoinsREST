@@ -29,6 +29,11 @@ public class GiocoRestController {
     @Autowired
     private CommentoService commService;
 
+    @GetMapping("")
+    public Map<String, Object> lista() {       
+        return service.recuperaTuttiDaNome();
+    }
+
     // INSERIMENTO ---------------------------------------------
     @PostMapping("/inserimento")
     public ResponseEntity<Object> inserimento(@RequestBody Gioco g) {

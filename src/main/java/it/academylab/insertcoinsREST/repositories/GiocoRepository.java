@@ -11,5 +11,5 @@ import it.academylab.insertcoinsREST.entities.Gioco;
 @RepositoryRestResource(collectionResourceRel = "giochi", path = "giochi")
 public interface GiocoRepository extends JpaRepository<Gioco, Long>{
 	
-	public List<Gioco> findAllByOrderByNome();
+	public List<Gioco> findAllByOrderByNomeAsc();
 }
