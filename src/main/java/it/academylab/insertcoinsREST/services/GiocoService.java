@@ -7,6 +7,7 @@ import it.academylab.insertcoinsREST.entities.Gioco;
 public interface GiocoService {
     
     public Map<String, Object> recuperaTuttiDaNome();
+    public Map<String, Object> recuperaGioco(long id);
     public Long salva(Gioco g);
 
 }

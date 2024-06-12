@@ -55,6 +55,29 @@ public class GiocoServiceImpl implements GiocoService{
         return mappa;
     }
 
+    public Map<String, Object> recuperaGioco(long id) {
+        Gioco g = repo.findById(id);
+        Categoria categoria = g.getCategoria();
+        long categoriaId = 0;
+        String categoriaNome = "";
+            if (categoria != null) {
+                categoriaId = categoria.getId();
+                categoriaNome = categoria.getNome();
+                }
+        CategoriaDto categoriaDto = new CategoriaDto(categoriaId,categoriaNome);
+        GiocoDto dto = new GiocoDto(
+        g.getId(),
+        g.getNome(),
+        g.getDescrizione(),
+        g.getVideo(),
+        g.getImg(),
+        categoriaDto);
+
+        Map<String, Object> gMap = new HashMap<>();
+        gMap.put("gioco", dto);
+        return gMap;
+    }
+
     @Override
     public Long salva(Gioco g) {
 

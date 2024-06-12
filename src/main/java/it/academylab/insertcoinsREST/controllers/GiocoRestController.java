@@ -31,8 +31,13 @@ public class GiocoRestController {
 
     // LISTA ---------------------------------------------------
     @GetMapping("")
-    public Map<String, Object> lista() {       
+    public Map<String, Object> recuperaLista() {       
         return service.recuperaTuttiDaNome();
+    }
+
+    @GetMapping("/{idgioco}")
+    public Map<String, Object> recuperaGioco(@PathVariable(value = "idgioco") int idgioco) {
+        return service.recuperaGioco(idgioco);
     }
 
     // INSERIMENTO ---------------------------------------------
