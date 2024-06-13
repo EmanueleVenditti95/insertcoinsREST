@@ -36,6 +36,11 @@ public class GiocoRestController {
         return service.recuperaTuttiDaNome();
     }
 
+    @GetMapping("/sort/{idcategoria}")
+    public Map<String, Object> recuperaListaFiltrataPerCategoria(@PathVariable(value = "idcategoria") int idcategoria) {       
+        return service.recuperaTuttiDaCategoriaId(idcategoria);
+    }
+
     // SINGOLO GIOCO ----------------------------------------------
     @GetMapping("/{idgioco}")
     public Map<String, Object> recuperaGioco(@PathVariable(value = "idgioco") int idgioco) {
@@ -74,7 +79,7 @@ public class GiocoRestController {
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    
+
     // RECUPERO COMMENTI
     @GetMapping("/{idgioco}/commenti")
 	public Map<String, Object> recupera(@PathVariable(value = "idgioco") long idgioco){

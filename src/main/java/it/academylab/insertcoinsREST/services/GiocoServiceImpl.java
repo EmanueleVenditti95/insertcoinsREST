@@ -74,6 +74,34 @@ public class GiocoServiceImpl implements GiocoService{
         return giocoMap;
     }
 
+    public Map<String, Object> recuperaTuttiDaCategoriaId(long id) {
+        
+        List<Gioco> giochi = repo.findAllByCategoriaId(id);
+        List<GiocoDto> dto = new ArrayList<GiocoDto>();
+
+        for(Gioco g : giochi) {
+
+            CategoriaDto categoriaDto = new CategoriaDto(
+                g.getCategoria().getId(),
+                g.getCategoria().getNome()
+                );
+            
+            dto.add(new GiocoDto(
+                g.getId(),
+                g.getNome(),
+                g.getDescrizione(),
+                g.getVideo(),
+                g.getImg(),
+                categoriaDto
+            ));
+       }
+
+        Map<String, Object> giochiMap = new HashMap<>();
+        giochiMap.put("giochi", dto);
+
+        return giochiMap;
+    }
+
     @Override
     public Long salva(Gioco g) {
 
