@@ -28,13 +28,11 @@ public class GiocoServiceImpl implements GiocoService{
         List<GiocoDto> dto = new ArrayList<GiocoDto>();
 
         for(Gioco g : giochi) {
-            long categoriaId = 0;
-            String categoriaNome = "";
-            if (g.getCategoria() != null) {
-                categoriaId = g.getCategoria().getId();
-                categoriaNome = g.getCategoria().getNome();
-                }
-            CategoriaDto categoriaDto = new CategoriaDto(categoriaId,categoriaNome);
+
+            CategoriaDto categoriaDto = new CategoriaDto(
+                g.getCategoria().getId(),
+                g.getCategoria().getNome()
+                );
             
             dto.add(new GiocoDto(
                 g.getId(),
@@ -88,5 +86,11 @@ public class GiocoServiceImpl implements GiocoService{
         }
     }
 
-
+    public boolean elimina(long idGioco) {
+        if (repo.existsById(idGioco)) {
+            repo.deleteById(idGioco);
+            return true;
+        }
+        return false;
+    }
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +36,7 @@ public class GiocoRestController {
         return service.recuperaTuttiDaNome();
     }
 
+    // SINGOLO GIOCO ----------------------------------------------
     @GetMapping("/{idgioco}")
     public Map<String, Object> recuperaGioco(@PathVariable(value = "idgioco") int idgioco) {
         return service.recuperaGioco(idgioco);
@@ -63,6 +65,16 @@ public class GiocoRestController {
         return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
     }
 
+    // ELIMINAZIONE ---------------------------------------------
+    @DeleteMapping("/{idgioco}")
+    public ResponseEntity<Void> eliminaGioco(@PathVariable(value = "idgioco") int idgioco) {
+        boolean isRemoved = service.elimina(idgioco);
+        if (!isRemoved) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    
     // RECUPERO COMMENTI
     @GetMapping("/{idgioco}/commenti")
 	public Map<String, Object> recupera(@PathVariable(value = "idgioco") long idgioco){
