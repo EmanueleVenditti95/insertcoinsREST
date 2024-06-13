@@ -12,4 +12,5 @@ import it.academylab.insertcoinsREST.entities.Categoria;
 public interface CategoriaRepository extends JpaRepository<Categoria, Long>{
 	
 	public List<Categoria> findAllByOrderByNome();
+	public Categoria findById(long id);
 }
