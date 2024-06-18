@@ -76,7 +76,7 @@ public class GiocoServiceImpl implements GiocoService{
 
     public Map<String, Object> recuperaTuttiDaCategoriaId(long id) {
         
-        List<Gioco> giochi = repo.findAllByCategoriaId(id);
+        List<Gioco> giochi = repo.findAllByCategoriaIdOrderByNomeAsc(id);
         List<GiocoDto> dto = new ArrayList<GiocoDto>();
 
         for(Gioco g : giochi) {
