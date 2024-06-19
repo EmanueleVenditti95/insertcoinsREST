@@ -56,6 +56,16 @@ public class UtenteServiceImpl implements UtenteService,UserDetailsService {
     }
 
     @Override
+    public Utente rimuoviRuoloAdUtente(String email, String nomeRuolo) {
+        log.info("Rimuovendo ruolo {} all'utente {}", nomeRuolo, email);
+        Utente utente = utenteRepo.findByEmail(email);
+        Ruolo ruolo = ruoloRepo.findByNome(nomeRuolo);
+        utente.getRuoli().remove(ruolo);
+        return utente;
+    }
+
+
+    @Override
     public List<Utente> recuperaTutti() {
         return utenteRepo.findAllByOrderByNome();
     }

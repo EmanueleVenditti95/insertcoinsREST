@@ -48,5 +48,11 @@ public class UtenteRestController {
     Utente userEntity = service.aggiungiRuoloAdUtente(email, request.getNome());
       return ResponseEntity.ok(userEntity);
    }
+
+   @PostMapping("/{email}/rimuoviRuoloAdUtente")
+   public ResponseEntity<?> rimuoviRuoloAdUtente(@PathVariable String email, @RequestBody RuoloDto request) {
+    Utente userEntity = service.rimuoviRuoloAdUtente(email, request.getNome());
+      return ResponseEntity.ok(userEntity);
+   }
 }
 
