@@ -29,29 +29,29 @@ public class UtenteRestController {
       return ResponseEntity.ok().body(service.recuperaTutti());
    }
 
-   @GetMapping("/{email}")
-   public ResponseEntity<Utente> recuperaDaEmail(@PathVariable String email) {
-      return ResponseEntity.ok().body(service.recuperaDaEmail(email));
+   @GetMapping("/{username}")
+   public ResponseEntity<Utente> recuperaDausername(@PathVariable String username) {
+      return ResponseEntity.ok().body(service.recuperaDaUsername(username));
    }
 
    @PostMapping
    public ResponseEntity<Utente> save(@RequestBody Utente utente) {
     Utente userEntity = service.save(utente);
-      URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentRequest().path("/{email}")
-              .buildAndExpand(userEntity.getEmail()).toUriString());
+      URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}")
+              .buildAndExpand(userEntity.getUsername()).toUriString());
       return ResponseEntity.created(uri).build();
    }
 
 
-   @PostMapping("/{email}/aggiungiRuoloAdUtente")
-   public ResponseEntity<?> aggiungiRuoloAdUtente(@PathVariable String email, @RequestBody RuoloDto request) {
-    Utente userEntity = service.aggiungiRuoloAdUtente(email, request.getNome());
+   @PostMapping("/{username}/aggiungiRuoloAdUtente")
+   public ResponseEntity<?> aggiungiRuoloAdUtente(@PathVariable String username, @RequestBody RuoloDto request) {
+    Utente userEntity = service.aggiungiRuoloAdUtente(username, request.getNome());
       return ResponseEntity.ok(userEntity);
    }
 
-   @PostMapping("/{email}/rimuoviRuoloAdUtente")
-   public ResponseEntity<?> rimuoviRuoloAdUtente(@PathVariable String email, @RequestBody RuoloDto request) {
-    Utente userEntity = service.rimuoviRuoloAdUtente(email, request.getNome());
+   @PostMapping("/{username}/rimuoviRuoloAdUtente")
+   public ResponseEntity<?> rimuoviRuoloAdUtente(@PathVariable String username, @RequestBody RuoloDto request) {
+    Utente userEntity = service.rimuoviRuoloAdUtente(username, request.getNome());
       return ResponseEntity.ok(userEntity);
    }
 }

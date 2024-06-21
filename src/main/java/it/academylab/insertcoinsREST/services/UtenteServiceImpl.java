@@ -36,29 +36,29 @@ public class UtenteServiceImpl implements UtenteService,UserDetailsService {
 
     @Override
     public Utente save(Utente utente) {
-        log.info("Salvando utente {} nel database", utente.getNome());
+        log.info("Salvando utente {} nel database", utente.getUsername());
         utente.setPassword(passwordEncoder.encode(utente.getPassword()));
         return utenteRepo.save(utente);
     }
 
     @Override
-    public Utente recuperaDaEmail(String email) {
-        return utenteRepo.findByEmail(email);
+    public Utente recuperaDaUsername(String username) {
+        return utenteRepo.findByUsername(username);
     }
 
     @Override
-    public Utente aggiungiRuoloAdUtente(String email, String nomeRuolo) {
-        log.info("Aggiungendo ruolo {} all'utente {}", nomeRuolo, email);
-        Utente utente = utenteRepo.findByEmail(email);
+    public Utente aggiungiRuoloAdUtente(String username, String nomeRuolo) {
+        log.info("Aggiungendo ruolo {} all'utente {}", nomeRuolo, username);
+        Utente utente = utenteRepo.findByUsername(username);
         Ruolo ruolo = ruoloRepo.findByNome(nomeRuolo);
         utente.getRuoli().add(ruolo);
         return utente;
     }
 
     @Override
-    public Utente rimuoviRuoloAdUtente(String email, String nomeRuolo) {
-        log.info("Rimuovendo ruolo {} all'utente {}", nomeRuolo, email);
-        Utente utente = utenteRepo.findByEmail(email);
+    public Utente rimuoviRuoloAdUtente(String username, String nomeRuolo) {
+        log.info("Rimuovendo ruolo {} all'utente {}", nomeRuolo, username);
+        Utente utente = utenteRepo.findByUsername(username);
         Ruolo ruolo = ruoloRepo.findByNome(nomeRuolo);
         utente.getRuoli().remove(ruolo);
         return utente;
@@ -67,19 +67,19 @@ public class UtenteServiceImpl implements UtenteService,UserDetailsService {
 
     @Override
     public List<Utente> recuperaTutti() {
-        return utenteRepo.findAllByOrderByNome();
+        return utenteRepo.findAllByOrderByUsername();
     }
 
     @Transactional(readOnly = true)
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Utente utente = utenteRepo.findByEmail(email);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Utente utente = utenteRepo.findByUsername(username);
         if(utente == null) {
-            String message = String.format(USER_NOT_FOUND_MESSAGE, email);
+            String message = String.format(USER_NOT_FOUND_MESSAGE, username);
             log.error(message);
             throw new UsernameNotFoundException(message);
         } else {
-            log.debug("User found in the database: {}", email);
+            log.debug("User found in the database: {}", username);
             Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
             utente.getRuoli().forEach(ruolo -> {
                 authorities.add(new SimpleGrantedAuthority(ruolo.getNome()));

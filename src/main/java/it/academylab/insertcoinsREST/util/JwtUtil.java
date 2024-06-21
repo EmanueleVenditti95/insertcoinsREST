@@ -20,7 +20,7 @@ import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@SuppressWarnings("unchecked")
 public abstract class JwtUtil {
 
     private static final int expireHourToken = 24;
@@ -34,7 +34,7 @@ public abstract class JwtUtil {
                     .subject(username)
                     .issuer(issuer)
                     .claim("roles", roles)
-                    .expirationTime(Date.from(Instant.now().plusSeconds(expireHourToken * 3600)))
+                    .expirationTime(Date.from(Instant.now().plusSeconds(expireHourToken * 3600))) //il token dura 24h
                     .issueTime(new Date())
                     .build();
 

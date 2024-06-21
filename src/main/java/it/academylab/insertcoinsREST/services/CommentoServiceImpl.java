@@ -49,7 +49,7 @@ public class CommentoServiceImpl implements CommentoService{
 		List<CommentoDto> dto = new ArrayList<CommentoDto>();
 		
 		for(Commento c : commenti)
-			dto.add(new CommentoDto(c.getId(), c.getTesto(), c.getData(), c.getVoto(), c.getUtente().getNome(),c.getGioco().getId()));
+			dto.add(new CommentoDto(c.getId(), c.getTesto(), c.getData(), c.getVoto(), c.getUtente().getUsername(),c.getGioco().getId()));
 
 		Map<String, Object> commentiMap = new HashMap<>();
 		commentiMap.put("commenti", dto);
