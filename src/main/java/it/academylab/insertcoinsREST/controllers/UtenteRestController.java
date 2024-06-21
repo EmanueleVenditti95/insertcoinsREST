@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +25,7 @@ public class UtenteRestController {
     @Autowired
     private UtenteService service;
 
-   @GetMapping
+   @GetMapping("")
    public ResponseEntity<List<Utente>> recuperaTutti() {
       return ResponseEntity.ok().body(service.recuperaTutti());
    }
@@ -32,6 +33,13 @@ public class UtenteRestController {
    @GetMapping("/{username}")
    public ResponseEntity<Utente> recuperaDausername(@PathVariable String username) {
       return ResponseEntity.ok().body(service.recuperaDaUsername(username));
+   }
+
+   @PostMapping("/inserimento")
+   public ResponseEntity<Object> inserimento(@RequestBody Utente utente) {
+      service.save(utente);
+      service.aggiungiRuoloAdUtente(utente.getUsername(), "ROLE_USER");
+      return ResponseEntity.ok().body(utente);
    }
 
    @PostMapping

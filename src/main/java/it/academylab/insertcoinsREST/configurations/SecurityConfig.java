@@ -34,6 +34,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers(HttpMethod.POST, "/login/**").permitAll() // Allow unauthenticated access to /login
+                        .requestMatchers(HttpMethod.POST, "/api/utenti/inserimento").permitAll()
                         .requestMatchers(HttpMethod.POST, "/utenti/**").hasAuthority("ROLE_ADMIN") // Restrict access to /utenti
                         .anyRequest().authenticated()// All other requests require authentication
                         )

@@ -17,7 +17,7 @@ public class RestConfig implements RepositoryRestConfigurer{
 	@Override
 	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
 		cors.addMapping("/**")
-			.allowedOrigins("*") // Permette richieste da qualsiasi origine
+			.allowedOrigins("*")
 			.allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"); // Permette tutti i metodi HTTP
 		
 		Class[] classiEntity = {Gioco.class, Categoria.class, Utente.class, Commento.class};
