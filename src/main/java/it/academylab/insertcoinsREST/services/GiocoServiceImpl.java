@@ -13,7 +13,9 @@ import it.academylab.insertcoinsREST.dto.GiocoDto;
 import it.academylab.insertcoinsREST.entities.Gioco;
 // import it.academylab.insertcoinsREST.repositories.CategoriaRepository;
 import it.academylab.insertcoinsREST.repositories.GiocoRepository;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class GiocoServiceImpl implements GiocoService{
 
@@ -110,6 +112,7 @@ public class GiocoServiceImpl implements GiocoService{
             return giocoSalvato.getId();
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            log.debug("Errore durante il salvataggio dei dati");
             return null;
         }
     }

@@ -33,10 +33,18 @@ public class SecurityConfig {
                 .cors()
                 .and()
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers(HttpMethod.POST, "/login/**").permitAll() // Allow unauthenticated access to /login
+                        // rotte permesse per utenti non registrati per fare login e registrarsi
+                        .requestMatchers(HttpMethod.POST, "/login/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/utenti/inserimento").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/utenti/**").hasAuthority("ROLE_ADMIN") // Restrict access to /utenti
-                        .anyRequest().authenticated()// All other requests require authentication
+
+                        // rotte permesse solo all`admin
+                        .requestMatchers(HttpMethod.POST, "/api/utenti/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/giochi/inserimento").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/giochi/aggiornamento").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/giochi/**").hasAuthority("ROLE_ADMIN")
+
+                        // tutte le altre rotte richiedono l`autenticazione
+                        .anyRequest().authenticated()
                         )
                 .addFilter(new CustomAuthenticationFilter(authenticationManager))
                 .addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
