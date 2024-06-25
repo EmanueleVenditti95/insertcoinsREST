@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.academylab.insertcoinsREST.entities.Gioco;
@@ -33,7 +34,12 @@ public class GiocoRestController {
     // LISTA ---------------------------------------------------
     @GetMapping("")
     public Map<String, Object> recuperaLista() {       
-        return service.recuperaTuttiDaNome();
+        return service.recuperaTuttiOrdByNome();
+    }
+
+    @GetMapping("/cerca")
+    public Map<String, Object> recuperaListaDaNome(@RequestParam("nomeGioco") String nomeGioco) {       
+        return service.recuperaTuttiDaNome(nomeGioco);
     }
 
     @GetMapping("/sort/{idcategoria}")

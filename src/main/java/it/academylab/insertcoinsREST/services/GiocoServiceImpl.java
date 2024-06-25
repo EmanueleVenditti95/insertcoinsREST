@@ -23,10 +23,38 @@ public class GiocoServiceImpl implements GiocoService{
     private GiocoRepository repo;
     // private CategoriaRepository repoCat;
 
-    public Map<String, Object> recuperaTuttiDaNome() {
+    public Map<String, Object> recuperaTuttiOrdByNome() {
 
         List<Gioco> giochi = repo.findAllByOrderByNomeAsc();
 
+        List<GiocoDto> dto = new ArrayList<GiocoDto>();
+
+        for(Gioco g : giochi) {
+
+            CategoriaDto categoriaDto = new CategoriaDto(
+                g.getCategoria().getId(),
+                g.getCategoria().getNome()
+                );
+            
+            dto.add(new GiocoDto(
+                g.getId(),
+                g.getNome(),
+                g.getDescrizione(),
+                g.getVideo(),
+                g.getImg(),
+                categoriaDto
+            ));
+       }
+
+        Map<String, Object> giochiMap = new HashMap<>();
+        giochiMap.put("giochi", dto);
+
+        return giochiMap;
+    }
+
+    public Map<String, Object> recuperaTuttiDaNome(String nome) {
+
+        List<Gioco> giochi = repo.findAllByNomeContainingIgnoreCaseOrderByNomeAsc(nome);
         List<GiocoDto> dto = new ArrayList<GiocoDto>();
 
         for(Gioco g : giochi) {
