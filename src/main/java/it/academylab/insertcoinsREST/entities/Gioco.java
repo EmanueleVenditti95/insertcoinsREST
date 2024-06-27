@@ -1,7 +1,6 @@
 package it.academylab.insertcoinsREST.entities;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -51,5 +50,5 @@ public class Gioco {
 	private List<Commento> commenti;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-    private Collection<Console> consoles = new ArrayList<>();
+    private List<Console> consoles = new ArrayList<>();
 }

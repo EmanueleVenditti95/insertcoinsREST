@@ -1,5 +1,7 @@
 package it.academylab.insertcoinsREST.dto;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,4 +16,5 @@ public class GiocoDto {
     private String img;
 
     private CategoriaDto categoria;
+    private List<ConsoleDto> consoles;
 }
