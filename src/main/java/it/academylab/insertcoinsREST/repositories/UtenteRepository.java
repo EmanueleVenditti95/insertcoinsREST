@@ -11,7 +11,7 @@ import it.academylab.insertcoinsREST.entities.Utente;
 @RepositoryRestResource(collectionResourceRel = "utenti", path = "utenti")
 public interface UtenteRepository extends JpaRepository<Utente, Long>{
 	
-	public List<Utente> findAllByOrderByNome();
+	public List<Utente> findAllByOrderByUsername();
 
-	public Utente findByEmail(String email);
+	public Utente findByUsername(String username);
 }

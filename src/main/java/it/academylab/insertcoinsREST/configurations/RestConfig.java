@@ -7,6 +7,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import it.academylab.insertcoinsREST.entities.Categoria;
 import it.academylab.insertcoinsREST.entities.Commento;
+import it.academylab.insertcoinsREST.entities.Console;
 import it.academylab.insertcoinsREST.entities.Gioco;
 import it.academylab.insertcoinsREST.entities.Utente;
 
@@ -17,10 +18,10 @@ public class RestConfig implements RepositoryRestConfigurer{
 	@Override
 	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
 		cors.addMapping("/**")
-			.allowedOrigins("*") // Permette richieste da qualsiasi origine
+			.allowedOrigins("*")
 			.allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"); // Permette tutti i metodi HTTP
 		
-		Class[] classiEntity = {Gioco.class, Categoria.class, Utente.class, Commento.class};
+		Class[] classiEntity = {Gioco.class, Categoria.class, Utente.class, Commento.class, Console.class};
 		
 		for(Class c : classiEntity) {
 			config.exposeIdsFor(c);
