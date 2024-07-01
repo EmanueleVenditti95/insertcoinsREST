@@ -15,4 +15,5 @@ public interface GiocoRepository extends JpaRepository<Gioco, Long>{
 	public List<Gioco> findAllByNomeContainingIgnoreCaseOrderByNomeAsc(String nome);
 	public Gioco findById(long id);
 	public List<Gioco> findAllByCategoriaIdOrderByNomeAsc(long id);
+	public List<Gioco> findAllByConsolesIdOrderByNomeAsc(long id);
 }

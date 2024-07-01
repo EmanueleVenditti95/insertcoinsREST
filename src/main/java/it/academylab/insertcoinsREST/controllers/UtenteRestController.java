@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import it.academylab.insertcoinsREST.dto.RuoloDto;
 import it.academylab.insertcoinsREST.entities.Utente;
 import it.academylab.insertcoinsREST.services.UtenteService;
 

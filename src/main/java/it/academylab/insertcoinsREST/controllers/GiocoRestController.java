@@ -42,9 +42,14 @@ public class GiocoRestController {
         return service.recuperaTuttiDaNome(nomeGioco);
     }
 
-    @GetMapping("/sort/{idcategoria}")
-    public Map<String, Object> recuperaListaFiltrataPerCategoria(@PathVariable(value = "idcategoria") int idcategoria) {       
-        return service.recuperaTuttiDaCategoriaId(idcategoria);
+    @GetMapping("/sort/{idCategoria}")
+    public Map<String, Object> recuperaListaFiltrataPerCategoria(@PathVariable(value = "idCategoria") int idCategoria) {       
+        return service.recuperaTuttiDaCategoriaId(idCategoria);
+    }
+
+    @GetMapping("/console/{idConsole}")
+    public Map<String,Object> recuperaListaFiltrataPerConsole(@PathVariable(value = "idConsole") int idConsole) {
+        return service.recuperaTuttiDaConsoleId(idConsole);
     }
 
     // SINGOLO GIOCO ----------------------------------------------
