@@ -14,8 +14,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.academylab.insertcoinsREST.entities.Gioco;
 import it.academylab.insertcoinsREST.entities.Ruolo;
 import it.academylab.insertcoinsREST.entities.Utente;
+import it.academylab.insertcoinsREST.repositories.GiocoRepository;
 import it.academylab.insertcoinsREST.repositories.RuoloRepository;
 import it.academylab.insertcoinsREST.repositories.UtenteRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +32,7 @@ public class UtenteServiceImpl implements UtenteService,UserDetailsService {
     @Autowired
     private final UtenteRepository utenteRepo;
     private final RuoloRepository ruoloRepo;
+    private final GiocoRepository giocoRepo;
     private final PasswordEncoder passwordEncoder;
 
     private static final String USER_NOT_FOUND_MESSAGE = "User with username %s not found";
@@ -85,6 +88,19 @@ public class UtenteServiceImpl implements UtenteService,UserDetailsService {
                 authorities.add(new SimpleGrantedAuthority(ruolo.getNome()));
             });
             return new User(utente.getEmail(), utente.getPassword(), authorities);
+        }
+    }
+
+    @Override
+    public Utente aggiungiPreferito(long utenteId, long giocoId) {
+        Utente utente = utenteRepo.findById(utenteId);
+        Gioco gioco = giocoRepo.findById(giocoId);
+        List<Gioco> preferiti = utente.getGiochi();
+        if (!preferiti.contains(gioco)) {
+            preferiti.add(gioco);
+            return utente;
+        } else {
+            return null;
         }
     }
 }

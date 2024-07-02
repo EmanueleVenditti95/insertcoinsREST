@@ -14,4 +14,5 @@ public interface UtenteRepository extends JpaRepository<Utente, Long>{
 	public List<Utente> findAllByOrderByUsername();
 
 	public Utente findByUsername(String username);
+	public Utente findById(long id);
 }

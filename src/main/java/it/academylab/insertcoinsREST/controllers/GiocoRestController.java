@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.academylab.insertcoinsREST.dto.PreferitoDto;
 import it.academylab.insertcoinsREST.entities.Gioco;
 import it.academylab.insertcoinsREST.services.CommentoService;
 import it.academylab.insertcoinsREST.services.GiocoService;
+import it.academylab.insertcoinsREST.services.UtenteService;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -31,24 +33,27 @@ public class GiocoRestController {
     @Autowired
     private CommentoService commService;
 
+    @Autowired
+    private UtenteService utenteService;
+
     // LISTA ---------------------------------------------------
     @GetMapping("")
-    public Map<String, Object> recuperaLista() {       
+    public Map<String, Object> recuperaLista() {
         return service.recuperaTuttiOrdByNome();
     }
 
     @GetMapping("/cerca")
-    public Map<String, Object> recuperaListaDaNome(@RequestParam("nomeGioco") String nomeGioco) {       
+    public Map<String, Object> recuperaListaDaNome(@RequestParam("nomeGioco") String nomeGioco) {
         return service.recuperaTuttiDaNome(nomeGioco);
     }
 
     @GetMapping("/sort/{idCategoria}")
-    public Map<String, Object> recuperaListaFiltrataPerCategoria(@PathVariable(value = "idCategoria") int idCategoria) {       
+    public Map<String, Object> recuperaListaFiltrataPerCategoria(@PathVariable(value = "idCategoria") int idCategoria) {
         return service.recuperaTuttiDaCategoriaId(idCategoria);
     }
 
     @GetMapping("/console/{idConsole}")
-    public Map<String,Object> recuperaListaFiltrataPerConsole(@PathVariable(value = "idConsole") int idConsole) {
+    public Map<String, Object> recuperaListaFiltrataPerConsole(@PathVariable(value = "idConsole") int idConsole) {
         return service.recuperaTuttiDaConsoleId(idConsole);
     }
 
@@ -63,7 +68,7 @@ public class GiocoRestController {
     public ResponseEntity<Object> inserimento(@RequestBody Gioco g) {
         Long giocoId = service.salva(g);
 
-        if(giocoId != null) {
+        if (giocoId != null) {
             // return new ResponseEntity<Object>(HttpStatus.CREATED);
             return ResponseEntity.ok().body(giocoId);
         }
@@ -71,12 +76,20 @@ public class GiocoRestController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @PostMapping("/aggiungiPreferito")
+    public ResponseEntity<?> aggiungiPreferito(@RequestBody PreferitoDto p) {
+        if (utenteService.aggiungiPreferito(p.getUtenteId(), p.getGiocoId()) != null)
+            return ResponseEntity.ok().body("Preferito salvato");
+        else
+            return ResponseEntity.badRequest().body("Errore nel salvataggio del preferito");
+    }
+
     // AGGIORNAMENTO ---------------------------------------------
     @PutMapping("/aggiornamento")
     public ResponseEntity<Object> aggiornamento(@RequestBody Gioco g) {
 
-        if(service.salva(g) != null) {
-             return new ResponseEntity<Object>(HttpStatus.OK);
+        if (service.salva(g) != null) {
+            return new ResponseEntity<Object>(HttpStatus.OK);
         }
         return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
     }
@@ -93,11 +106,11 @@ public class GiocoRestController {
 
     // RECUPERO COMMENTI
     @GetMapping("/{idgioco}/commenti")
-	public Map<String, Object> recupera(@PathVariable(value = "idgioco") long idgioco){
+    public Map<String, Object> recupera(@PathVariable(value = "idgioco") long idgioco) {
 
-		Map<String, Object> commenti = commService.recuperaTuttiDaGiocoId(idgioco);
-		
-	    return commenti;
-		
-	}
+        Map<String, Object> commenti = commService.recuperaTuttiDaGiocoId(idgioco);
+
+        return commenti;
+
+    }
 }

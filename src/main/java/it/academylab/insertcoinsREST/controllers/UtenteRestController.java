@@ -48,7 +48,6 @@ public class UtenteRestController {
       return ResponseEntity.created(uri).build();
    }
 
-
    // @PostMapping("/{username}/aggiungiRuoloAdUtente")
    // public ResponseEntity<?> aggiungiRuoloAdUtente(@PathVariable String username, @RequestBody RuoloDto request) {
    //  Utente userEntity = service.aggiungiRuoloAdUtente(username, request.getNome());

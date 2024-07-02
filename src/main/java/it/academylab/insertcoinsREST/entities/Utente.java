@@ -44,5 +44,7 @@ public class Utente {
 	@OneToMany(mappedBy = "utente")
 	@ToString.Exclude
 	private List<Commento> commenti;
-	
+		
+	@ManyToMany(fetch = FetchType.EAGER)
+	private List<Gioco> giochi = new ArrayList<>();
 }
