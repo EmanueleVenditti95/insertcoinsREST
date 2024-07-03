@@ -104,6 +104,14 @@ public class GiocoRestController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @PostMapping("/rimuoviPreferito")
+    public ResponseEntity<?> eliminaPreferito(@RequestBody PreferitoDto p) {
+        if (utenteService.eliminaPreferito(p.getUtenteId(), p.getGiocoId()))
+            return ResponseEntity.ok().body(null);
+        else
+            return ResponseEntity.badRequest().body("Errore nell'eliminazione del preferito");
+    }
+
     // RECUPERO COMMENTI
     @GetMapping("/{idgioco}/commenti")
     public Map<String, Object> recupera(@PathVariable(value = "idgioco") long idgioco) {

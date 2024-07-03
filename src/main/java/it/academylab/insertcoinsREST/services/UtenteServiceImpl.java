@@ -103,4 +103,15 @@ public class UtenteServiceImpl implements UtenteService,UserDetailsService {
             return null;
         }
     }
+
+    @Override
+    public boolean eliminaPreferito(long utenteId, long giocoId) {
+        Utente utente = utenteRepo.findById(utenteId);
+        Gioco gioco = giocoRepo.findById(giocoId);
+        List<Gioco> preferiti = utente.getGiochi();
+        if (preferiti.contains(gioco))          
+            return preferiti.remove(gioco);
+        else
+            return false;
+    }
 }

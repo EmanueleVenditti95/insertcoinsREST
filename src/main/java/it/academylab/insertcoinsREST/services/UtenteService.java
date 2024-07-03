@@ -12,5 +12,6 @@ public interface UtenteService {
     public Utente aggiungiRuoloAdUtente(String email, String nomeRuolo);
     public Utente rimuoviRuoloAdUtente(String email, String nomeRuolo);
     public Utente aggiungiPreferito(long utenteId, long giocoId);
+    public boolean eliminaPreferito(long utenteId, long giocoId);
 }
 
