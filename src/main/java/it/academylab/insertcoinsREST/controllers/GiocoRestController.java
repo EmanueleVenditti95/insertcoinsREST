@@ -79,7 +79,7 @@ public class GiocoRestController {
     @PostMapping("/aggiungiPreferito")
     public ResponseEntity<?> aggiungiPreferito(@RequestBody PreferitoDto p) {
         if (utenteService.aggiungiPreferito(p.getUtenteId(), p.getGiocoId()) != null)
-            return ResponseEntity.ok().body("Preferito salvato");
+            return ResponseEntity.ok().body(null);
         else
             return ResponseEntity.badRequest().body("Errore nel salvataggio del preferito");
     }
