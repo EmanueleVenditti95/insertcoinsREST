@@ -57,6 +57,11 @@ public class GiocoRestController {
         return service.recuperaTuttiDaConsoleId(idConsole);
     }
 
+    @GetMapping("/rand")
+    public Map<String,Object> recuperaRand() {
+        return service.recuperaCasuali();
+    }
+
     // SINGOLO GIOCO ----------------------------------------------
     @GetMapping("/{idgioco}")
     public Map<String, Object> recuperaGioco(@PathVariable(value = "idgioco") int idgioco) {

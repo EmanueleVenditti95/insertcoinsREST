@@ -36,6 +36,7 @@ public class SecurityConfig {
                         // rotte permesse per utenti non registrati per fare login e registrarsi
                         .requestMatchers(HttpMethod.POST, "/login/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/utenti/inserimento").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/giochi/rand").permitAll()
 
                         // rotte permesse solo all`admin
                         .requestMatchers(HttpMethod.POST, "/api/utenti/**").hasAuthority("ROLE_ADMIN")

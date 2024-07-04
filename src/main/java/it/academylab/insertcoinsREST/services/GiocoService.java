@@ -13,4 +13,5 @@ public interface GiocoService {
     public Map<String, Object> recuperaGioco(long id);
     public Long salva(Gioco g);
     public boolean elimina(long id);
+    public Map<String, Object> recuperaCasuali();
 }
